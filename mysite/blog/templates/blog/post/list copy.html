@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+  <h1>My Blog</h1>
+  {% for post in posts %}
+    <h2>
+      <a href="{{ post.get_absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h2>
+    <p class="date">
+      Published {{ post.publish }} by {{ post.author }}
+    </p>
+    {{ post.body|truncatewords:30|linebreaks }}
+  {% endfor %}
+
+  <!-- Debugging output 
+   {{ posts }}
+  <p>Page number: {{ posts.number }}</p>
+  <p>Has previous page: {{ posts.has_previous }}</p>
+  <p>Has next page: {{ posts.has_next }}</p>
+  <p>Number of pages: {{ posts.paginator.num_pages }}</p>
+  -->
+
+  {% include 'pagination.html' with page=page_obj %}
+{% endblock %}
